@@ -27,7 +27,7 @@ class AuthController extends Controller
         if (!$token) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthorized',
+                'error' => 'Unauthorized',
             ], 401);
         }
 
@@ -36,7 +36,8 @@ class AuthController extends Controller
             'status' => 'success',
             'user' => $user,
             'authorisation' => [
-                'token' => $token,
+                'accessToken' => $token,
+                'refreshToken' => $token,
                 'type' => 'bearer',
             ]
         ]);

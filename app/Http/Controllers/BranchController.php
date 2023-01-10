@@ -18,6 +18,7 @@ class BranchController extends Controller
          $branch = new Branch();
          $branch->name = $request->name;
          $branch->code = $request->code;
+         $branch->user_id = auth()->id();
 
          $branch->save();
          return response()->json(new BranchResource($branch));

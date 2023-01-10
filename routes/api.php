@@ -25,8 +25,8 @@ Route::get('employee/get_today_employees',[\App\Http\Controllers\EmployeeControl
 //Branch
 Route::post('branch/create',[\App\Http\Controllers\BranchController::class,'create'])->middleware('auth:api');
 Route::get('branch',[\App\Http\Controllers\BranchController::class,'index'])->middleware('auth:api');
-Route::get('branch/show/{employee}',[\App\Http\Controllers\BranchController::class,'show'])->middleware('auth:api');
+Route::get('branch/show/{branch}',[\App\Http\Controllers\BranchController::class,'show'])->middleware('auth:api');
 Route::post('branch/update',[\App\Http\Controllers\BranchController::class,'update'])->middleware('auth:api');
-Route::get('branch/delete/{employee}',[\App\Http\Controllers\BranchController::class,'delete'])->middleware('auth:api');
+Route::get('branch/delete/{branch}',[\App\Http\Controllers\BranchController::class,'delete'])->middleware('auth:api');
 Route::get('branch/get_branch_employees',[\App\Http\Controllers\BranchController::class,'get_branch_employees'])->middleware('auth:api');
 

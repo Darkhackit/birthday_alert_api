@@ -32,8 +32,9 @@ class AutoBirthDayWish extends Command
      */
     public function handle(): int
     {
-        $employees = Employee::whereMonth('dob',Carbon::now()->format('m'))
-            ->whereDay('dob', Carbon::now()->format('d'))->get();
+        // $employees = Employee::whereMonth('dob',Carbon::now()->format('m'))
+        //     ->whereDay('dob', Carbon::now()->format('d'))->get();
+        $employees = Employee::all();
         if($employees->count() > 0) {
             foreach ($employees as $employee) {
                 Mail::to($employee->email)->send(new BirthDayMail($employee));

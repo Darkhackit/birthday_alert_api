@@ -1,195 +1,105 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$emoloyee->name}}</title>
-    <style>
-        body {
-            margin: 0;
-            background: #020202;
-            cursor: crosshair;
-        }
-        canvas{display:block}
-        h1 {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
-            font-family: "Source Sans Pro";
-            font-size: 5em;
-            font-weight: 900;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
+  <title>Happy Birthday card || Learningrobo</title>
+  <style>
+
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+body {
+  background: #DCE35B; 
+background: -webkit-linear-gradient(to right, #45B649, #DCE35B); 
+background: linear-gradient(to right, #45B649, #DCE35B); 
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.card {
+  background: #12192c;
+  border-radius: 30px;
+  height: 85vh;
+  width: 80vw;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  overflow: hidden;
+  color:#DCE35B;
+}
+
+@media only screen and (min-width: 1000px) {
+  .card {
+    flex-direction: row-reverse;
+  }
+  .card img.birthday {
+    width: 60%;
+    max-width: 50vw;
+    max-height: unset;
+    border-radius: 30px;
+  }
+}
+
+@media only screen and (max-height: 640px) {
+  .card {
+    flex-direction: row-reverse;
+  }
+  .card img.birthday {
+    width: 100%;
+    max-width: 50vw;
+    max-height: unset;
+  }
+}
+
+img.birthday {
+  max-height: 40vh;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.text {
+  padding: 3em;
+}
+.text h1{
+  font-family:cursive;
+  font-size: 40px;
+}
+.space {
+  height: 100px;
+}
+
+.credit a{
+  text-decoration: none;
+  color: #fff;
+}
+
+.credit {
+    margin-top: 10px;
+    text-align: center;
+}
+
+  </style>
 </head>
 <body>
-        <h1>Happy Birthday</h1>
-        <canvas id="birthday"></canvas>
-        <h1>{{$emoloyee->name}}</h1>
+  <div class="card">
+    <img src="https://cdn.pixabay.com/photo/2020/10/06/21/54/cake-5633461__480.png" alt="birthday" class="birthday">
+    <div class="text">
+      <h1>Happy Birthday {{$employee->firstname}} {{$employee->middlename}} {{$employee->lastname}}!</h1>
+      <p>Wishing you the best on your birthday and everything good in the year ahead.” “Hope your day is filled with happiness.” “Wishing you a happy birthday and a wonderful year.” “Our whole team is wishing you the happiest of birthdays.</p>
+      <p>~from primeinsuranceghana</p>
+    </div>
+    <div class="space"></div>
+  </div>
 </body>
-<script>
-    // helper functions
-    const PI2 = Math.PI * 2
-    const random = (min, max) => Math.random() * (max - min + 1) + min | 0
-    const timestamp = _ => new Date().getTime()
-
-    // container
-    class Birthday {
-        constructor() {
-            this.resize()
-
-            // create a lovely place to store the firework
-            this.fireworks = []
-            this.counter = 0
-
-        }
-
-        resize() {
-            this.width = canvas.width = window.innerWidth
-            let center = this.width / 2 | 0
-            this.spawnA = center - center / 4 | 0
-            this.spawnB = center + center / 4 | 0
-
-            this.height = canvas.height = window.innerHeight
-            this.spawnC = this.height * .1
-            this.spawnD = this.height * .5
-
-        }
-
-        onClick(evt) {
-            let x = evt.clientX || evt.touches && evt.touches[0].pageX
-            let y = evt.clientY || evt.touches && evt.touches[0].pageY
-
-            let count = random(3,5)
-            for(let i = 0; i < count; i++) this.fireworks.push(new Firework(
-                random(this.spawnA, this.spawnB),
-                this.height,
-                x,
-                y,
-                random(0, 260),
-                random(30, 110)))
-
-            this.counter = -1
-
-        }
-
-        update(delta) {
-            ctx.globalCompositeOperation = 'hard-light'
-            ctx.fillStyle = `rgba(20,20,20,${ 7 * delta })`
-            ctx.fillRect(0, 0, this.width, this.height)
-
-            ctx.globalCompositeOperation = 'lighter'
-            for (let firework of this.fireworks) firework.update(delta)
-
-            // if enough time passed... create new new firework
-            this.counter += delta * 3 // each second
-            if (this.counter >= 1) {
-                this.fireworks.push(new Firework(
-                    random(this.spawnA, this.spawnB),
-                    this.height,
-                    random(0, this.width),
-                    random(this.spawnC, this.spawnD),
-                    random(0, 360),
-                    random(30, 110)))
-                this.counter = 0
-            }
-
-            // remove the dead fireworks
-            if (this.fireworks.length > 1000) this.fireworks = this.fireworks.filter(firework => !firework.dead)
-
-        }
-    }
-
-    class Firework {
-        constructor(x, y, targetX, targetY, shade, offsprings) {
-            this.dead = false
-            this.offsprings = offsprings
-
-            this.x = x
-            this.y = y
-            this.targetX = targetX
-            this.targetY = targetY
-
-            this.shade = shade
-            this.history = []
-        }
-        update(delta) {
-            if (this.dead) return
-
-            let xDiff = this.targetX - this.x
-            let yDiff = this.targetY - this.y
-            if (Math.abs(xDiff) > 3 || Math.abs(yDiff) > 3) { // is still moving
-                this.x += xDiff * 2 * delta
-                this.y += yDiff * 2 * delta
-
-                this.history.push({
-                    x: this.x,
-                    y: this.y
-                })
-
-                if (this.history.length > 20) this.history.shift()
-
-            } else {
-                if (this.offsprings && !this.madeChilds) {
-
-                    let babies = this.offsprings / 2
-                    for (let i = 0; i < babies; i++) {
-                        let targetX = this.x + this.offsprings * Math.cos(PI2 * i / babies) | 0
-                        let targetY = this.y + this.offsprings * Math.sin(PI2 * i / babies) | 0
-
-                        birthday.fireworks.push(new Firework(this.x, this.y, targetX, targetY, this.shade, 0))
-
-                    }
-
-                }
-                this.madeChilds = true
-                this.history.shift()
-            }
-
-            if (this.history.length === 0) this.dead = true
-            else if (this.offsprings) {
-                for (let i = 0; this.history.length > i; i++) {
-                    let point = this.history[i]
-                    ctx.beginPath()
-                    ctx.fillStyle = 'hsl(' + this.shade + ',100%,' + i + '%)'
-                    ctx.arc(point.x, point.y, 1, 0, PI2, false)
-                    ctx.fill()
-                }
-            } else {
-                ctx.beginPath()
-                ctx.fillStyle = 'hsl(' + this.shade + ',100%,50%)'
-                ctx.arc(this.x, this.y, 1, 0, PI2, false)
-                ctx.fill()
-            }
-
-        }
-    }
-
-    let canvas = document.getElementById('birthday')
-    let ctx = canvas.getContext('2d')
-
-    let then = timestamp()
-
-    let birthday = new Birthday
-    window.onresize = () => birthday.resize()
-    document.onclick = evt => birthday.onClick(evt)
-    document.ontouchstart = evt => birthday.onClick(evt)
-
-    ;(function loop(){
-        requestAnimationFrame(loop)
-
-        let now = timestamp()
-        let delta = now - then
-
-        then = now
-        birthday.update(delta / 1000)
-
-
-    })()
-</script>
 </html>

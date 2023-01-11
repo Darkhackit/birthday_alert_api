@@ -24,9 +24,6 @@ return new class extends Migration
             $table->date('dob');
             $table->integer('user_id');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
         });
     }
 

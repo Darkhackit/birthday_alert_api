@@ -20,7 +20,9 @@ class BirthDayMail extends Mailable
      *
      * @return void
      */
-    public Employee $employee;
+    protected $employee;
+
+    
     public function __construct(Employee $employee)
     {
         $this->employee  = $employee;
@@ -34,7 +36,7 @@ class BirthDayMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address('jeffrey@example.com', 'Jeffrey Way'),
+            from: new Address('hr@primeinsuranceghana.com', 'Jeffrey Way'),
             subject: 'Birth Day Mail',
         );
     }
@@ -48,6 +50,7 @@ class BirthDayMail extends Mailable
     {
         return new Content(
             view: 'emails.birthday',
+            with:['employee' => $this->employee]
         );
     }
 

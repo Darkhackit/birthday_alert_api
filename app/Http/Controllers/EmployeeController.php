@@ -52,7 +52,7 @@ class EmployeeController extends Controller
             'dob' => ['required','date']
         ]);
 
-        $employee =  Employee::where('id',$request->id);
+        $employee =  Employee::where('id',$request->id)->first();
         $employee->firstname = $request->first_name;
         $employee->lastname = $request->last_name;
         $employee->middlename = $request->middle_name;

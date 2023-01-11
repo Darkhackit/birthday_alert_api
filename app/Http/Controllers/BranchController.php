@@ -38,7 +38,7 @@ class BranchController extends Controller
             'code' => ['required']
         ]);
 
-        $branch =  Branch::where();
+        $branch =  Branch::where('id',$request->id)->first();
         $branch->name = $request->name;
         $branch->code = $request->code;
 

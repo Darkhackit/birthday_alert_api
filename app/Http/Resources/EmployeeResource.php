@@ -22,6 +22,8 @@ class EmployeeResource extends JsonResource
             'email' => $this->email,
             'gender' => $this->gender,
             'dob' => $this->dob,
+            'status' => $this->status,
+            'mentor' => $this->mentor,
             'created_by' => $this->user,
             'branch' => new BranchResource($this->branch),
             'created_at' => $this->created_at->toDateString()

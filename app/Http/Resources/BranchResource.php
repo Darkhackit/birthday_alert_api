@@ -18,6 +18,7 @@ class BranchResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'code' => $this->code,
+            'number_of_employees' => $this->employees->count(),
             'employees' => EmployeeResource::collection($this->whenLoaded('employees'))
         ];
     }

@@ -28,6 +28,7 @@ class EmployeeController extends Controller
         $employee->gender = $request->gender;
         $employee->branch_id = $request->branch_id;
         $employee->dob = $request->dob;
+        $employee->status = $request->status;
         $employee->user_id = auth()->id();
         $employee->save();
 
@@ -58,6 +59,7 @@ class EmployeeController extends Controller
         $employee->middlename = $request->middle_name;
         $employee->email = $request->email;
         $employee->gender = $request->gender;
+        $employee->status = $request->status;
         $employee->branch_id = $request->branch_id;
         $employee->dob = $request->dob;
         $employee->update();

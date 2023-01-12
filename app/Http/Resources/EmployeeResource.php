@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EmployeeResource extends JsonResource
@@ -26,7 +27,7 @@ class EmployeeResource extends JsonResource
             'mentor' => $this->mentor,
             'created_by' => $this->user,
             'branch' => new BranchResource($this->branch),
-            'created_at' => $this->created_at->toDateString()
+            'created_at' => $this->created_at->toDateString(),
         ];
     }
 }
